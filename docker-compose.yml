@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  discovery-server:
+    image: discovery
+    ports:
+      - "8761:8761"
+  config-server:
+    image: config-server
+    ports:
+      - "8888:8888"
+  zuul-gateway:
+    image: gateway
+    ports:
+      - "8111:8111"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+    depends_on:
+      - discovery-server
+  accounts-service:
+    image: accounts-api
+    ports:
+      - "8500:8500"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+      - spring.cloud.config.uri=http://config-server:8888
+    depends_on:
+      - discovery-server
+      - config-server
+    restart: on-failure
+  address-service:
+    image: address-api
+    ports:
+      - "8501:8501"
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
+      - spring.cloud.config.uri=http://config-server:8888
+    depends_on:
+      - discovery-server
+      - config-server
+    restart: on-failure
