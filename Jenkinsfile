@@ -36,13 +36,12 @@ node {
 
         sh(script: "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh")
 
-        steps {
-            sh "$PWD"
-            dir('${WORKSPACE}/target/scripts/docker'){
-                sh "$PWD"
-            }
+        sh "$PWD"
+        dir('${WORKSPACE}/target/scripts/docker'){
             sh "$PWD"
         }
+        sh "$PWD"
+
         sh "./create-images.sh"
     }
 
