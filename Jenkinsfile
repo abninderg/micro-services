@@ -28,11 +28,13 @@ node {
         sh "${mvn_home}/bin/mvn package"
     }
 
-
     //build the docker image tagging it with the jenkins build number
-    //stage('Build image') {
-     //   sh "docker build . -t ${imageName}:${BUILD_NUMBER} -f ${WORKSPACE}/target/docker-file/Dockerfile"
-    //}
+    stage('Build images') {
+
+        sh "chmod 777 ${WORKSPACE}/target/scripts/create-images.sh"
+        sh "chmod 777 ${WORKSPACE}/target/remove-previous-images.sh"
+        sh {WORKSPACE}/target/scripts/create-images.sh
+    }
 
     //login into docker hub and push the built image to docker hub with image tag
    // stage('Push image') {
