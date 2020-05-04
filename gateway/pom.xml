@@ -14,6 +14,10 @@
     <name>gateway</name>
     <description>Gateway</description>
 
+    <properties>
+        <packageDir>../target/api/${artifactId}</packageDir>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -59,10 +63,14 @@
                                     <destFileName>${artifactId}.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>${project.build.directory}/api</outputDirectory>
+                            <outputDirectory>../target/api/${artifactId}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

@@ -6,7 +6,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.microservices</groupId>
     <artifactId>services</artifactId>
@@ -17,7 +16,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
-        <rootDir>${project.build.directory}</rootDir>
+        <packageDir>../target/api/${artifactId}</packageDir>
     </properties>
 
     <dependencies>
@@ -75,5 +74,37 @@
         <module>scripts</module>
     </modules>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <executions>
+                        <execution>
+                            <id>copy api dependencies</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+
+                            <configuration>
+                                <outputDirectory>${packageDir}</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${basedir}</directory>
+                                        <filtering>false</filtering>
+                                        <includes>
+                                            <include>Dockerfile</include>
+                                        </includes>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

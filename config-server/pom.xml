@@ -12,6 +12,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <description>Spring cloud configuration server</description>
 
+    <properties>
+        <packageDir>../target/api/${artifactId}</packageDir>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -56,10 +59,14 @@
                                     <destFileName>${artifactId}.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>${project.build.directory}/api</outputDirectory>
+                            <outputDirectory>../target/api/${artifactId}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
