@@ -29,7 +29,7 @@ node {
     }
 
     //build the docker image tagging it with the jenkins build number
-    stage('Build images') {
+    stage('Build and upload images to docker-hub') {
 
         sh "chmod 777 ${WORKSPACE}/target/scripts/docker/create-images.sh"
         sh "chmod 777 ${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
