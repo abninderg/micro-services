@@ -1,6 +1,6 @@
 
 # shellcheck disable=SC2164
-cd "${WORKSPACE}"/microservices/target/api
+cd ../../api
 
 for directory in *; do
  docker build ./"${directory}" -t "${directory}"

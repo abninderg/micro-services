@@ -35,7 +35,15 @@ node {
         sh "chmod 777 ${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
         sh(script: "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh")
-        sh(script: "${WORKSPACE}/target/scripts/docker/create-images.sh")
+
+        steps {
+            sh "$PWD"
+            dir('${WORKSPACE}/target/scripts/docker'){
+                sh "$PWD"
+            }
+            sh "$PWD"
+        }
+        sh "./create-images.sh"
     }
 
     //login into docker hub and push the built image to docker hub with image tag
