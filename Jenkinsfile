@@ -36,8 +36,7 @@ node {
 
         sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
-        sh "cd ${WORKSPACE}/target/scripts/docker"
-        sh "./create-images.sh"
+        sh "${WORKSPACE}/target/scripts/docker/create-images.sh"
     }
 
     //login into docker hub and push the built image to docker hub with image tag
