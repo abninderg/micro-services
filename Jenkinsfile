@@ -36,7 +36,7 @@ node {
 
         sh(script: "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh")
 
-        dir('${WORKSPACE}/target/scripts/docker'){
+        dir("${WORKSPACE}/target/scripts/docker"){
             sh "./create-images.sh"
         }
     }
