@@ -22,13 +22,13 @@
                         </goals>
 
                         <configuration>
-                            <outputDirectory>../target/scripts</outputDirectory>
+                            <outputDirectory>../target/scripts/docker</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${basedir}/src/main/docker</directory>
                                     <filtering>false</filtering>
                                     <includes>
-                                        <include>create-images.sh</include>
+                                        <include>*.sh</include>
                                     </includes>
                                 </resource>
                             </resources>

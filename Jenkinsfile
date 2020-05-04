@@ -31,11 +31,11 @@ node {
     //build the docker image tagging it with the jenkins build number
     stage('Build images') {
 
-        sh "chmod 777 ${WORKSPACE}/target/scripts/create-images.sh"
-        sh "chmod 777 ${WORKSPACE}/target/remove-previous-images.sh"
+        sh "chmod 777 ${WORKSPACE}/target/scripts/docker/create-images.sh"
+        sh "chmod 777 ${WORKSPACE}/target/scripts/dockerremove-previous-images.sh"
 
-        sh ./{WORKSPACE}/target/remove-previous-images.sh
-        sh ./{WORKSPACE}/target/scripts/create-images.sh
+        sh ./{WORKSPACE}/target/scripts/dockerremove-previous-images.sh
+        sh ./{WORKSPACE}/target/scripts/docker/create-images.sh
     }
 
     //login into docker hub and push the built image to docker hub with image tag
