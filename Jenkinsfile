@@ -34,8 +34,8 @@ node {
         sh "chmod 777 ${WORKSPACE}/target/scripts/create-images.sh"
         sh "chmod 777 ${WORKSPACE}/target/remove-previous-images.sh"
 
-        sh {WORKSPACE}/target/remove-previous-images.sh
-        sh {WORKSPACE}/target/scripts/create-images.sh
+        sh ./{WORKSPACE}/target/remove-previous-images.sh
+        sh ./{WORKSPACE}/target/scripts/create-images.sh
     }
 
     //login into docker hub and push the built image to docker hub with image tag
