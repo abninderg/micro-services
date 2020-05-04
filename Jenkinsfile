@@ -34,6 +34,7 @@ node {
         sh "chmod 777 ${WORKSPACE}/target/scripts/docker/create-images.sh"
         sh "chmod 777 ${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
+        sh "cd ${WORKSPACE}/target/scripts/docker"
         sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
         sh "${WORKSPACE}/target/scripts/docker/create-images.sh"
