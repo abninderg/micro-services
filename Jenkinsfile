@@ -31,23 +31,24 @@ node {
     //build the docker image tagging it with the jenkins build number
     stage('Build and upload images to docker-hub') {
 
-        sh "chmod 777 ${WORKSPACE}/target/scripts/docker/create-images.sh"
-        sh "chmod 777 ${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
-
-        sh(script: "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh")
+        sh "chmod 777 ${WORKSPACE}/target/scripts/docker/*.sh"
+        sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
         dir("${WORKSPACE}/target/scripts/docker"){
             sh "./create-images.sh"
         }
     }
 
-    //login into docker hub and push the built image to docker hub with image tag
-   // stage('Push image') {
-    //    withCredentials([string(credentialsId: 'dockerLog', variable: 'DockerHubLogin')]) {
-   //         sh "docker login -u abninder -p ${DockerHubLogin}"
-      //  }
-     //   sh "docker push ${imageName}:${BUILD_NUMBER}"
-   // }
+    //login into docker hub and push the built images to docker hub
+    //with image tag
+    stage('Push images to docker hub') {
+        withCredentials([string(credentialsId: 'dockerLog', variable: 'DockerHubLogin')]) {
+            sh "docker login -u abninder -p ${DockerHubLogin}"
+        }
+        dir("${WORKSPACE}/target/scripts/docker"){
+            sh "./push-images.sh"
+        }
+    }
 
    // stage('prepare ec2 instance and deploy') {
     //    sh "chmod 777 ${WORKSPACE}/target/scripts/*.sh"
