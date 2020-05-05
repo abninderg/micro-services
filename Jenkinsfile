@@ -44,9 +44,9 @@ node {
     stage('Push images to docker hub') {
         withCredentials([string(credentialsId: 'dockerLog', variable: 'DockerHubLogin')]) {
             sh "docker login -u abninder -p ${DockerHubLogin}"
-        }
-        dir("${WORKSPACE}/target/scripts/docker"){
-            sh "./push-images.sh"
+            dir("${WORKSPACE}/target/scripts/docker"){
+                sh "./push-images.sh"
+            }
         }
     }
 
