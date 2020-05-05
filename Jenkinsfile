@@ -4,7 +4,7 @@ properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', 
 node {
     def mvn_home
     def docker
-    def repo
+    def repo = "abninder"
 
     environment {
         ec2_pem_key_path = "/Users/abninder/aws_credentials/HelloWorld.pem"
