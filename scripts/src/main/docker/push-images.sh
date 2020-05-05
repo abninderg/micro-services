@@ -3,5 +3,5 @@
 cd ../../api
 
 for directory in *; do
- docker push ./"${directory}:latest"
+ docker push ${directory}:latest"
 done
