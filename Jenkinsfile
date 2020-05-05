@@ -4,7 +4,7 @@ properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', 
 node {
     def mvn_home
     def docker
-    def repo = "abninder"
+    def DOCKER_REPO = "abninder"
 
     environment {
         ec2_pem_key_path = "/Users/abninder/aws_credentials/HelloWorld.pem"
@@ -33,7 +33,7 @@ node {
         //sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
         dir("${WORKSPACE}/target/scripts/docker"){
-            sh "./create-images.sh ${repo}"
+            sh "./create-images.sh ${DOCKER_REPO}"
         }
     }
 
@@ -43,7 +43,7 @@ node {
         withCredentials([string(credentialsId: 'dockerLog', variable: 'DockerHubLogin')]) {
             sh "docker login -u abninder -p ${DockerHubLogin}"
             dir("${WORKSPACE}/target/scripts/docker"){
-                sh "./push-images.sh ${repo}"
+                sh "./push-images.sh ${DOCKER_REPO}"
             }
         }
     }
