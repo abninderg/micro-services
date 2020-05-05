@@ -30,7 +30,7 @@ node {
     stage('Build and upload images to docker-hub') {
 
         sh "chmod 777 ${WORKSPACE}/target/scripts/docker/*.sh"
-        sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
+        //sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
         dir("${WORKSPACE}/target/scripts/docker"){
             sh "./create-images.sh env.REPO"
