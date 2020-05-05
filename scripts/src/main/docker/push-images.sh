@@ -1,4 +1,4 @@
-
+REPO="$1"
 # shellcheck disable=SC2164
 cd ../../api
 

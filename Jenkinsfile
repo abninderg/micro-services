@@ -33,7 +33,7 @@ node {
         sh "${WORKSPACE}/target/scripts/docker/remove-previous-images.sh"
 
         dir("${WORKSPACE}/target/scripts/docker"){
-            sh "./create-images.sh"
+            sh "./create-images.sh env.REPO"
         }
     }
 
