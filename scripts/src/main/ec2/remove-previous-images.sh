@@ -1,4 +1,4 @@
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)
-docker rmi $(docker images -a -q)
-docker system prune -af
+sudo docker stop $(docker ps -a -q)
+sudo docker rm $(docker ps -a -q)
+sudo docker rmi $(docker images -a -q)
+sudo docker system prune -af
