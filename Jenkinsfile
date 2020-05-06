@@ -27,29 +27,29 @@ node {
     }
 
     //build the docker image tagging it with the jenkins build number
-    stage('Build images') {
+   // stage('Build images') {
 
-        sh "chmod 777 ${WORKSPACE}/target/scripts/docker/*.sh"
+    //    sh "chmod 777 ${WORKSPACE}/target/scripts/docker/*.sh"
 
-        dir("${WORKSPACE}/target/scripts/docker"){
-            sh "./create-images.sh ${DOCKER_REPO}"
-        }
-    }
+   //     dir("${WORKSPACE}/target/scripts/docker"){
+   //         sh "./create-images.sh ${DOCKER_REPO}"
+   //     }
+   // }
 
     //login into docker hub and push the built images to docker hub
     //with image tag
     stage('Push images to docker hub') {
         withCredentials([string(credentialsId: 'dockerLog', variable: 'DockerHubLogin')]) {
             sh "docker login -u abninder -p ${DockerHubLogin}"
-            dir("${WORKSPACE}/target/scripts/docker"){
-                sh "./push-images.sh ${DOCKER_REPO}"
-            }
+            //dir("${WORKSPACE}/target/scripts/docker"){
+              //  sh "./push-images.sh ${DOCKER_REPO}"
+            //}
         }
     }
 
     stage('Deploy to aws ec2') {
         sh "chmod 777 ${WORKSPACE}/target/scripts/deploy/*.sh"
         sh "chmod 777 ${WORKSPACE}/target/scripts/ec2/*.*"
-        sh "${WORKSPACE}/target/scripts/deploy/ec2-prepare-instance.sh ${WORKSPACE}/target/scripts/deploy"
+        sh "${WORKSPACE}/target/scripts/deploy/ec2-prepare-instance.sh ${WORKSPACE}"
     }
 }
