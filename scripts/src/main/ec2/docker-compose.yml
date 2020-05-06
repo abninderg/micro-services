@@ -2,15 +2,15 @@ version: "3"
 
 services:
   discovery-server:
-    image: discovery
+    image: abninder/discovery
     ports:
       - "8761:8761"
   config-server:
-    image: config-server
+    image: abninder/config-server
     ports:
       - "8888:8888"
   zuul-gateway:
-    image: gateway
+    image: abninder/gateway
     ports:
       - "8111:8111"
     environment:
@@ -18,7 +18,7 @@ services:
     depends_on:
       - discovery-server
   accounts-service:
-    image: accounts-api
+    image: abninder/accounts-api
     ports:
       - "8500:8500"
     environment:
@@ -29,7 +29,7 @@ services:
       - config-server
     restart: on-failure
   address-service:
-    image: addresses-api
+    image: abninder/addresses-api
     ports:
       - "8501:8501"
     environment:

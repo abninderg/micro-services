@@ -15,13 +15,13 @@
                 <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>copy deployment scripts</id>
+                        <id>copy docker scripts</id>
                         <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
 
-                        <configuration>
+                       <configuration>
                             <outputDirectory>../target/scripts/docker</outputDirectory>
                             <resources>
                                 <resource>
@@ -29,6 +29,46 @@
                                     <filtering>false</filtering>
                                     <includes>
                                         <include>*.sh</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy ec2 preparation scripts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+
+                        <configuration>
+                            <outputDirectory>../target/scripts/deploy</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/deploy</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>*.sh</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy ec2 scripts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+
+                        <configuration>
+                            <outputDirectory>../target/scripts/ec2</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/main/ec2</directory>
+                                    <filtering>false</filtering>
+                                    <includes>
+                                        <include>*.*</include>
                                     </includes>
                                 </resource>
                             </resources>

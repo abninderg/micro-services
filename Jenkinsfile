@@ -47,10 +47,9 @@ node {
         }
     }
 
-   // stage('prepare ec2 instance and deploy') {
-    //    sh "chmod 777 ${WORKSPACE}/target/scripts/*.sh"
-    //    sh(script: "${WORKSPACE}/target/scripts/ec2-prepare-instance.sh ${WORKSPACE}/target/scripts ${imageName} " +
-      //                      "${lastSuccessfulBuildID} ${BUILD_NUMBER}", returnStatus: true)
-
-   // }
+    stage('Deploy to aws ec2') {
+        sh "chmod 777 ${WORKSPACE}/target/scripts/deploy/*.sh"
+        sh "chmod 777 ${WORKSPACE}/target/scripts/ec2/*.*"
+        sh "${WORKSPACE}/target/scripts/deploy/ec2-prepare-instance.sh ${WORKSPACE}/target/scripts/deploy"
+    }
 }
