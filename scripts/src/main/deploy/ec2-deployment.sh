@@ -16,6 +16,6 @@ scp -i "${EC2_PEM_KEY_PATH}" -r "${DOCKER_SCRIPTS_SRC_PATH}" "ec2-user@${EC2_PUB
 ssh -i "${EC2_PEM_KEY_PATH}" "ec2-user@${EC2_PUBLIC_DNS}" ${SCRIPTS_DESTINATION_FOLDER}/ec2/remove-previous-images.sh
 
 #start docker compose
-ssh -i "${EC2_PEM_KEY_PATH}" "ec2-user@${EC2_PUBLIC_DNS}" ${SCRIPTS_DESTINATION_FOLDER}/ec2/start-all-containers.sh
+ssh -i "${EC2_PEM_KEY_PATH}" "ec2-user@${EC2_PUBLIC_DNS}" ${SCRIPTS_DESTINATION_FOLDER}/ec2/start-all-containers.sh ${SCRIPTS_DESTINATION_FOLDER}
 
 exit $?
