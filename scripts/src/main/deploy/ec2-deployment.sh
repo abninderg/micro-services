@@ -10,7 +10,7 @@ ssh -i "${EC2_PEM_KEY_PATH}" "ec2-user@${EC2_PUBLIC_DNS}" mkdir -p ${SCRIPTS_DES
 
 #copy scripts to ec2 instance
 echo copying scripts from "${DOCKER_SCRIPTS_SRC_PATH}" to ${SCRIPTS_DESTINATION_FOLDER} on "${EC2_PUBLIC_DNS}"
-scp -i "${EC2_PEM_KEY_PATH}" -r "${DOCKER_SCRIPTS_SRC_PATH}/*.sh" "ec2-user@${EC2_PUBLIC_DNS}":${SCRIPTS_DESTINATION_FOLDER}
+scp -i "${EC2_PEM_KEY_PATH}" "${DOCKER_SCRIPTS_SRC_PATH}/*.sh" "ec2-user@${EC2_PUBLIC_DNS}":${SCRIPTS_DESTINATION_FOLDER}
 scp -i "${EC2_PEM_KEY_PATH}" "${DOCKER_SCRIPTS_SRC_PATH}/*.yml" "ec2-user@${EC2_PUBLIC_DNS}":${SCRIPTS_DESTINATION_FOLDER}
 
 #stop the running containers and images if any
