@@ -7,4 +7,4 @@ sudo chmod 777 /var/run/docker.sock
 
 # shellcheck disable=SC2164
 cd "${DOCKER_COMPOSE_DIR}"
-docker-compose up &
+docker-compose up
