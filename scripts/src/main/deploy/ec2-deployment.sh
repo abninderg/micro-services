@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOCKER_SCRIPTS_SRC_PATH="${WORKSPACE}/target/scripts/ec2"
-SCRIPTS_DESTINATION_FOLDER="/home/ec2-user/scripts/"
+SCRIPTS_DESTINATION_FOLDER="/home/ec2-user/scripts"
 
 ssh-keyscan -H "${EC2_PUBLIC_DNS}" >> ~/.ssh/known_hosts
 
