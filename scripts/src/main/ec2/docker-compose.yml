@@ -10,6 +10,7 @@ services:
     image: abninder/config-server
     ports:
       - "8888:8888"
+    restart: on-failure
   zuul-gateway:
     image: abninder/gateway
     ports:
