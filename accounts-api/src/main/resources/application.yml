@@ -12,4 +12,5 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
-
+    lease-renewal-interval-in-seconds: 60
+    leaseExpirationDurationInSeconds: 60
