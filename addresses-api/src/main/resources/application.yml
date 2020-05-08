@@ -13,4 +13,4 @@ eureka:
   instance:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 60
-    leaseExpirationDurationInSeconds: 60
+    leaseExpirationDurationInSeconds: 180
