@@ -5,6 +5,7 @@ services:
     image: abninder/discovery
     ports:
       - "8761:8761"
+    restart: on-failure
   config-server:
     image: abninder/config-server
     ports:
