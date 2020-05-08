@@ -5,13 +5,6 @@ services:
     image: abninder/discovery
     ports:
       - "8761:8761"
-      - eureka.us-east-1.availabilityZones=us-east-1a
-      - eureka.serviceUrl.us-east-1c=https://eureka.abninder.com/
-      - eureka.shouldUseDns=true
-      - eureka.eurekaServer.domainName=eureka.abninder.com/
-      - eureka.eurekaServer.port=8761
-      - eureka.eurekaServer.context=svc
-      - eureka.datacenter=cloud
   config-server:
     image: abninder/config-server
     ports:
@@ -20,13 +13,6 @@ services:
     image: abninder/gateway
     ports:
       - "8111:8111"
-      - eureka.us-east-1.availabilityZones=us-east-1c
-      - eureka.serviceUrl.us-east-1c=https://eureka.abninder.com/
-      - eureka.shouldUseDns=true
-      - eureka.eurekaServer.domainName=eureka.abninder.com/
-      - eureka.eurekaServer.port=8761
-      - eureka.eurekaServer.context=svc
-      - eureka.datacenter=cloud
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
     depends_on:
@@ -38,13 +24,6 @@ services:
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
       - spring.cloud.config.uri=http://config-server:8888
-      - eureka.us-east-1.availabilityZones=us-east-1c
-        - eureka.serviceUrl.us-east-1c=https://eureka.abninder.com/
-        - eureka.shouldUseDns=true
-        - eureka.eurekaServer.domainName=eureka.abninder.com/
-        - eureka.eurekaServer.port=8761
-        - eureka.eurekaServer.context=svc
-        - eureka.datacenter=cloud
     depends_on:
       - discovery-server
       - config-server
@@ -56,13 +35,6 @@ services:
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
       - spring.cloud.config.uri=http://config-server:8888
-      - eureka.us-east-1.availabilityZones=us-east-1c
-        - eureka.serviceUrl.us-east-1c=https://eureka.abninder.com/
-        - eureka.shouldUseDns=true
-        - eureka.eurekaServer.domainName=eureka.abninder.com/
-        - eureka.eurekaServer.port=8761
-        - eureka.eurekaServer.context=svc
-        - eureka.datacenter=cloud
     depends_on:
       - discovery-server
       - config-server
