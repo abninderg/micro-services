@@ -24,7 +24,7 @@ public class WebController {
         this.accountDetails=accountDetails;
     }
 
-    @GetMapping("/api/account/details")
+    @GetMapping("/details")
     public String getAccountDetails(){
         String addressDetails = restTemplate.getForObject("http://address-service/address/", String.class);
         return accountDetails + " ==> " + addressDetails;
