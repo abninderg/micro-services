@@ -27,14 +27,14 @@ node {
     }
 
     //build the docker image tagging it with the jenkins build number
-   // stage('Build images') {
+    stage('Build images') {
 
-    //    sh "chmod 777 ${WORKSPACE}/target/scripts/docker/*.sh"
+        sh "chmod 777 ${WORKSPACE}/target/scripts/docker/*.sh"
 
-   //     dir("${WORKSPACE}/target/scripts/docker"){
-   //         sh "./create-images.sh ${DOCKER_REPO}"
-   //     }
-   // }
+        dir("${WORKSPACE}/target/scripts/docker"){
+            sh "./create-images.sh ${DOCKER_REPO}"
+        }
+    }
 
     //login into docker hub and push the built images to docker hub
     //with image tag
