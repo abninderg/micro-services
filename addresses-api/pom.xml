@@ -7,11 +7,10 @@
         <artifactId>services</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <groupId>com.microservices.services</groupId>
     <artifactId>addresses-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <description>Address config server client</description>
+    <description>Spring cloud config client</description>
 
     <properties>
         <packageDir>../target/api/${artifactId}</packageDir>
@@ -58,13 +57,13 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>com.microservices.services</groupId>
-                                    <artifactId>address-api</artifactId>
+                                    <artifactId>addresses-api</artifactId>
                                     <version>0.0.1-SNAPSHOT</version>
                                     <type>jar</type>
                                     <destFileName>${artifactId}.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>../target/api/${artifactId}</outputDirectory>
+                            <outputDirectory>${packageDir}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -75,5 +74,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
