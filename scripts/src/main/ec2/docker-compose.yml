@@ -5,6 +5,8 @@ services:
     image: abninder/discovery
     ports:
       - "8761:8761"
+    environment:
+      - eureka.server.peer-node-read-timeout-ms=20000
     restart: on-failure
   config-server:
     image: abninder/config-server
