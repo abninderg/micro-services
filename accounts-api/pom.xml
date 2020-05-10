@@ -13,8 +13,6 @@
     <description>Spring cloud config client</description>
 
     <properties>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
         <packageDir>../target/api/${artifactId}</packageDir>
     </properties>
 

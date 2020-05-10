@@ -5,5 +5,5 @@ repo="$1"
 cd ../../api
 
 for directory in *; do
- docker build ./"${directory}" -t "${repo}/${directory}:latest"
+ sudo docker build ./"${directory}" -t "${repo}/${directory}:latest"
 done

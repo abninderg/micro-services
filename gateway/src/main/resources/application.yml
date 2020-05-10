@@ -1,11 +1,13 @@
 zuul:
+  host:
+    connect-timeout-millis: 5000000
+    socket-timeout-millis: 5000000
   ignoredServices: '*'
-  health:
-    enabled: true
   routes:
     account-service:
-      path: api/account/**
+      path: /info/**
       serviceId: account-service
+      stripPrefix: true
 
 server:
   port: 8111
@@ -28,7 +30,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: routes,filters,*
+        include: routes,filters
   endpoint:
     routes:
       enabled: true

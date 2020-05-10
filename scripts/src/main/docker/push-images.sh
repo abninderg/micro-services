@@ -4,5 +4,5 @@ repo="$1"
 cd ../../api
 
 for directory in *; do
- docker push "${repo}/${directory}":latest
+ sudo docker push "${repo}/${directory}":latest
 done

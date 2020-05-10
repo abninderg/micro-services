@@ -6,12 +6,14 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 
 @RestController
+@RequestMapping("/account")
 public class WebController {
 
     @Autowired
@@ -24,7 +26,7 @@ public class WebController {
         this.accountDetails=accountDetails;
     }
 
-    @GetMapping("/details")
+    @GetMapping("value = /details")
     public String getAccountDetails(){
         String addressDetails = restTemplate.getForObject("http://address-service/address/", String.class);
         return accountDetails + " ==> " + addressDetails;
@@ -34,8 +36,6 @@ public class WebController {
     @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder
-                .setConnectTimeout(Duration.ofSeconds(120))
-                .setReadTimeout(Duration.ofSeconds(120))
                 .build();
     }
 
