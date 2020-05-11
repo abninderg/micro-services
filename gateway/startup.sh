@@ -1,0 +1,1 @@
+java -jar -DServer.port=8111 gateway.jar

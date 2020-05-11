@@ -1,9 +1,12 @@
 
-repo="$1"
+DOCKER_HUB_REPO="$1"
+if [ -z "${DOCKER_HUB_REPO}" ]; then
+  DOCKER_HUB_REPO="abninder"
+fi
 
 # shellcheck disable=SC2164
 cd ../../api
 
 for directory in *; do
-  docker build ./"${directory}" -t "${repo}/${directory}:latest"
+  docker build ./"${directory}" -t "${DOCKER_HUB_REPO}/${directory}:latest"
 done

@@ -5,8 +5,14 @@ ENV TARGET_DIR=/api
 RUN mkdir -p ${TARGET_DIR}
 ADD gateway.jar ${TARGET_DIR}
 
-WORKDIR ${TARGET_DIR}
-EXPOSE 8111
+ADD startup.sh ${TARGET_DIR}
 
-ENTRYPOINT ["java", "-jar", "-DServer.port=8111", "gateway.jar"]
+WORKDIR ${TARGET_DIR}
+RUN chmod 777 startup.sh
+EXPOSE 8511
+
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
+RUN chmod +x /wait
+
+CMD /wait && ./startup.sh
 

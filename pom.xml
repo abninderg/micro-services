@@ -106,6 +106,25 @@
                                 </resources>
                             </configuration>
                         </execution>
+                        <execution>
+                            <id>copy start-up script</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${packageDir}</outputDirectory>
+                                <resources>
+                                    <resource>
+                                        <directory>${basedir}</directory>
+                                        <filtering>false</filtering>
+                                        <includes>
+                                            <include>startup.sh</include>
+                                        </includes>
+                                    </resource>
+                                </resources>
+                            </configuration>
+                        </execution>
                     </executions>
                 </plugin>
             </plugins>

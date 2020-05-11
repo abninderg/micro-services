@@ -1,0 +1,1 @@
+java -jar -DServer.port=8501 addresses-api.jar

@@ -19,8 +19,10 @@ services:
       - "8111:8111"
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
-    depends_on:
-      - discovery-server
+      - WAIT_HOSTS=discovery-server:8761
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     restart: on-failure
   accounts-service:
     image: abninder/accounts-api
@@ -29,9 +31,10 @@ services:
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
       - spring.cloud.config.uri=http://config-server:8888
-    depends_on:
-      - discovery-server
-      - config-server
+      - WAIT_HOSTS=discovery-server:8761, config-server:8888
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     restart: on-failure
   address-service:
     image: abninder/addresses-api
@@ -40,7 +43,8 @@ services:
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery-server:8761/eureka
       - spring.cloud.config.uri=http://config-server:8888
-    depends_on:
-      - discovery-server
-      - config-server
+      - WAIT_HOSTS=discovery-server:8761, config-server:8888
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     restart: on-failure

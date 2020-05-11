@@ -36,6 +36,8 @@ public class WebController {
     @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder
+                .setConnectTimeout(Duration.ofSeconds(500000))
+                .setReadTimeout(Duration.ofSeconds(500000))
                 .build();
     }
 
