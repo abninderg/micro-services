@@ -13,9 +13,6 @@ echo copying scripts from ${DOCKER_SCRIPTS_SRC_PATH} to ${SCRIPTS_DESTINATION_FO
 scp -i ${EC2_PEM_KEY_PATH} ${DOCKER_SCRIPTS_SRC_PATH}/*.sh "ec2-user@${EC2_PUBLIC_DNS}":${SCRIPTS_DESTINATION_FOLDER}
 scp -i ${EC2_PEM_KEY_PATH} ${DOCKER_SCRIPTS_SRC_PATH}/*.yml "ec2-user@${EC2_PUBLIC_DNS}":${SCRIPTS_DESTINATION_FOLDER}
 
-#stop the running containers and images if any
-ssh -i ${EC2_PEM_KEY_PATH} "ec2-user@${EC2_PUBLIC_DNS}" ${SCRIPTS_DESTINATION_FOLDER}/remove-previous-images.sh
-
 #start docker compose
 ssh -i ${EC2_PEM_KEY_PATH} "ec2-user@${EC2_PUBLIC_DNS}" ${SCRIPTS_DESTINATION_FOLDER}/start-all-containers.sh ${SCRIPTS_DESTINATION_FOLDER}
 

@@ -1,7 +1,7 @@
 zuul:
   host:
-    connect-timeout-millis: 5000000
-    socket-timeout-millis: 5000000
+    connect-timeout-millis: 120000
+    socket-timeout-millis: 120000
   ignoredServices: '*'
   routes:
     account-service:
@@ -25,7 +25,7 @@ eureka:
     registry-fetch-interval-seconds: 30
   instance:
     prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 60
+    lease-renewal-interval-in-seconds: 30
 
 
 management:
@@ -37,7 +37,16 @@ management:
     routes:
       enabled: true
 
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000
+
 ribbon:
-  ConnectionTimeout: 900000
-  ReadTimeout: 900000
+  ConnectTimeout: 120000
+  ReadTimeout: 120000
 
