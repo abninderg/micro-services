@@ -1,0 +1,104 @@
+** create a kubernetes deployment called myapp-deploy that logs onto docker hub with the user name/password credentials and pulls the image
+** from docker hub and runs a container inside a pod
+kubectl create deployment myapp-deploy --username=abninder --password=liverpool01 --image=abninder/discovery:latest
+
+** get a list of deployments and their status
+kubectl get deployments
+
+** get running pods
+kubectl get pods
+
+** get status of containers in a pod
+kubectl describe pods
+
+** view container logs
+kubectl logs POD_NAME
+Where pod name can be retrieved from kubectl get pods
+
+** get nodes for your cluster
+kubectl get nodes
+
+Components
+===================
+
+Node => this can be a physical server or vm
+pod => smallest unit of deployment in kubernetes and creates a runtime environment over the container
+       hence providing a level of abstraction so that other container technologies besides docker can
+       be used, kubernetes does not want to work directly with the container environment hence the need
+       to create its own abstracted environment on top of the container environment.
+
+    => Usually you would have one main container per pod, but where containers need to share resources they
+       can be deployed as part of the same pod. Therefore they may containers that are tightly coupled that
+       in order for them to work as 1 application as they for example need to share volumes etc will need
+       to in this case be deployed in the same pod.
+
+       Each pod will have its own unique internal IP address not accessible from other bodes.
+
+       If a pod should die due to for example the application in the container crashes then a new replacement
+       pod will be created( as the application containers would be stateless) and assigned a new IP address,
+       creating a new IP address is not what we want as communication between pods will break.
+
+       Pod replication cannot be done using stateful containers such as database containers due to race conditions
+       and locking, a kubernetes component called STATEFUL SET is used for this purpose.
+                                                  =============
+
+service => This is a component with a static ip address that allows communication between pods. Each pod will have
+          its own service. The life cycle of the pod and its service is independent so if the pod should die the
+          static ip address of the service will remain unchanged.
+          The service is also a load balancer that can distribute requests to other pods attached to that service that
+          reside on other duplicate nodes.
+
+Ingress > This is a controller that will receive external requests such as from a browser and forward these onto the
+          service associated with the pod that is to handle the request, and hence acts as entry point into the
+          application
+
+Config Map => Normally you would keep configuration in a yml/properties file for your application such as url's ports,
+              service names etc, but the issue with this is that if you have to change the properties you would
+              need to rebuild the image, push it to docker hub, and re-deploy meaning stopping pods etc.
+              To get around that we can use kubernetes config map and keep external configuration there. The pod will
+              read the config map and use the new settings and if any properties need changing only the config map needs
+              updating without rebuilding the images again.
+
+Secret     => Although we can keep config in a config map, sensitive config such as database user name,passwords,
+              credentials, certificates etc. should be stored in a base 64 encoded format in this component.
+              The pod would need to be configured in the deployment .yml file to use the relevant config map/secret.
+
+Deployments => Most of the time we will be working with deployments, we would not be creating pods our-self but defining
+               the blue print to create pods, as well as replica's etc and it will be up to the deployment to manage
+               pod creation, replica's etc on the cluster.
+
+               Deployments are a layer of abstraction over pods, as pods are a layer of abstraction over containers.
+
+
+ARCHITECTURE
+================
+
+The cluster consists of worker nodes that contain multiple application pods. Every worker node on the cluster must have
+installed
+1 - The container run time
+2 - kublet is the interface between the host machine and container run time and is responsible for taking the deployment
+    configuration and starting the pod and assign resources from the node to that container, such as cpu,ram,volumes etc.
+3 - Kube Proxy - Forwards requests to the pods considering performance such as minimise network overhead where possible.
+
+Monitoring, scheduling etc
+Master node in the cluster is responsible for this. All requests to the cluster are sent to the master node
+automatically and its the master nod that manages the worker nodes.
+
+MASTER NOde will contain these services to manage the cluster
+- API Server => (gets any queries e.g cluster health and updates made to the cluster), also provides authentication so only eligible
+  requests are allowed. Schedules new pods, create new services, update deployments etc.
+
+- SCHEDULER => once requests are validated the api server forwards the requests to the scheduler that has the intelligence to decide
+  on which worker node the pod will be started on by deciding how much ram/cpu is required and which node has the
+  capacity to meet the requirement.
+  The scheduler only makes the decision on which node to start the pod, the actual service that starts the pod is the kublet.
+
+CONTROLLER-MANAGER => Monitors the health of pods and if a pod dies it has to re-schedule the starting of a replacement.
+                      The controllers responsibility is to maintain the required cluster state and in this cases will call
+                      the scheduler to start a new pod.
+
+etcd => key/value store that will contain the state of the cluster, every change in the cluster get updated in etcd.
+         The scheduler can utilise the information in etcd to decide which node to schedule the new pod on as it maintains
+         real time state of the cluster such as resources. This does not store any application data.
+
+         The api controller can answer queries by utilising state in the etcd
